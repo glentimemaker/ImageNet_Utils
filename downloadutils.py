@@ -8,8 +8,8 @@ import pref_utils
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description='Help the user to download, crop, and handle images from ImageNet')
-    p.add_argument('--wnid', nargs='+', help='ImageNet Wnid. E.g. : n02710324')
-    p.add_argument('--downloadImages', help='Should download images', action='store_true', default=False)
+    p.add_argument('--wnid', nargs='+', default='n03930630', help='ImageNet Wnid. E.g. : n02710324')
+    p.add_argument('--downloadImages', help='Should download images', action='store_true', default=True)
     p.add_argument('--downloadOriginalImages', help='Should download original images', action='store_true', default=False)
     p.add_argument('--downloadBoundingBox', help='Should download bouding box annotation files', action='store_true', default=False)
     p.add_argument('--replaceIfExists', help='Image should be downloaded even if already exists on direcotry and replace it', action='store_true', default=False)
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     p.add_argument('--verbose', '-v', action='store_true', help='Enable verbose log')
     args = p.parse_args()
     if args.wnid is None:
-        print 'No wnid'
+        print('No wnid')
         sys.exit()
 
     downloader = imagedownloader.ImageNetDownloader()
@@ -43,13 +43,13 @@ if __name__ == '__main__':
     if args.downloadOriginalImages is True:
     # Download original image, but need to set key and username
         if username is None or accessKey is None:
-            username = raw_input('Enter your username : ')
-            accessKey = raw_input('Enter your accessKey : ')
+            username = input('Enter your username : ')
+            accessKey = input('Enter your accessKey : ')
             if username and accessKey:
                 pref_utils.saveUserInfo(username, accessKey)
 
         if username is None or accessKey is None:
-            print 'need username and accessKey to download original images'
+            print('need username and accessKey to download original images')
         else:
             for id in args.wnid:
                 downloader.downloadOriginalImages(id, username, accessKey)
