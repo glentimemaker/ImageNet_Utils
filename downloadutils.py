@@ -8,7 +8,7 @@ import pref_utils
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description='Help the user to download, crop, and handle images from ImageNet')
-    p.add_argument('--wnid', nargs='+', default=['n04166281', 'n03930630'], help='ImageNet Wnid. E.g. : n02710324')
+    p.add_argument('--wnid', nargs='+', default=['n04166281'], help='ImageNet Wnid. E.g. : n02710324')
     p.add_argument('--downloadImages', help='Should download images', action='store_true', default=True)
     p.add_argument('--downloadOriginalImages', help='Should download original images', action='store_true', default=False)
     p.add_argument('--downloadBoundingBox', help='Should download bouding box annotation files', action='store_true', default=False)
@@ -32,13 +32,13 @@ if __name__ == '__main__':
 
     if args.downloadImages is True:
         for id in args.wnid:
+            print(id)
             mapping = downloader.getImageURLsMappingOfWnid(id)
+            downloader.downloadBBox(id)
+            mapping = downloader.check_bbox_exist(id, mapping)
+            # exit()
             downloader.downloadImagesByURLsMapping(id, mapping, replace_if_exists=args.replaceIfExists)
 
-    if args.downloadBoundingBox is True:
-        for id in args.wnid:
-            # Download annotation files
-            downloader.downloadBBox(id)
 
     if args.downloadOriginalImages is True:
     # Download original image, but need to set key and username

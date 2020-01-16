@@ -96,7 +96,7 @@ class ImageNetDownloader:
 
     def getImageURLsMappingOfWnid(self, wnid):
         #http://www.image-net.org/api/text/imagenet.synset.geturls?wnid=
-        url = 'http://www.image-net.org/api/text/imagenet.synset.geturls.getmapping?wnid=' + str('n03930630')
+        url = 'http://www.image-net.org/api/text/imagenet.synset.geturls.getmapping?wnid=' + str(wnid)
         f = urllib2.urlopen(url)
         contents = f.read().decode().split('\n')
         # print(contents)
@@ -105,9 +105,8 @@ class ImageNetDownloader:
         for each_line in contents:
             # Remove unnecessary char
             each_line = each_line.replace('\r', '').strip()
-            print(each_line)
+            # print(each_line)
             if each_line:
-                print(0)
                 # parsing each line into filename and imageUrl
                 each_line_split = each_line.split(' ')
 
@@ -121,8 +120,17 @@ class ImageNetDownloader:
                     'filename': filename,
                     'url': imageUrl
                 })
-        print(imageUrlsMapping)
+        # print(imageUrlsMapping)
         return imageUrlsMapping
+
+    def check_bbox_exist(self, wnid, imageUrlsMapping):
+        bbox_folder = os.path.join(str(wnid), 'Annotation', str(wnid))
+        bbox_list = [x.split('.')[0] for x in os.listdir(bbox_folder)]
+        print(bbox_list)
+        print(imageUrlsMapping[0]['filename'])
+        inter_list = [x for x in imageUrlsMapping if x['filename'] in bbox_list]
+        print(inter_list)
+        return inter_list
 
     def mkWnidDir(self, wnid):
         if not os.path.exists(wnid):
