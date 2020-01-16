@@ -1,9 +1,11 @@
 # ImageNet-Utils
 Utils to help download images, crop bounding box, GUI tool to annotate image in XML file etc.
 
+This version is compatible for python3.
+
 Grap the source
 
-`$ git clone --recursive https://github.com/tzutalin/ImageNet_Utils.git`
+`$ git clone --recursive https://github.com/glentimemaker/ImageNet_Utils.git`
 
 ### Requirements
 If you would like to download the original images, you should signup [ImageNet](http://www.image-net.org/)
