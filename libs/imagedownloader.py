@@ -95,8 +95,8 @@ class ImageNetDownloader:
         return imageUrls
 
     def getImageURLsMappingOfWnid(self, wnid):
-        #http://www.image-net.org/api/text/imagenet.synset.geturls.getmapping?wnid=
-        url = 'http://www.image-net.org/api/text/imagenet.synset.geturls?wnid=' + str('n03930630')
+        #http://www.image-net.org/api/text/imagenet.synset.geturls?wnid=
+        url = 'http://www.image-net.org/api/text/imagenet.synset.geturls.getmapping?wnid=' + str('n03930630')
         f = urllib2.urlopen(url)
         contents = f.read().decode().split('\n')
         # print(contents)
